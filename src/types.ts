@@ -19,3 +19,17 @@ export interface DeviceIdentity {
   }
   timestamp: number
 }
+
+export interface DeviceSession {
+  id: string
+
+  startedAt: number
+
+  lastActivity: number
+
+  pageViews: number
+
+  duration: number
+
+  isNew: boolean
+}
