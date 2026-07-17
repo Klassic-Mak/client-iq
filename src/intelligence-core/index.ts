@@ -2,7 +2,7 @@ import { enrichFingerprint } from './enrich'
 import { calculateRisk } from './risk'
 import { normalizeDevice } from './normalize'
 
-export function processFingerPrint(fingerprint: any) {
+export function processFingerprint(fingerprint: any) {
   const enriched = enrichFingerprint(fingerprint)
 
   const normalized = normalizeDevice(enriched)

@@ -1,30 +1,34 @@
-//this adds up to the fingerprint data , thus making it more detailed
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function enrichFingerprint(fingerprint: any) {
+  const nav = typeof navigator !== 'undefined' ? navigator : null
 
-import type { DeviceIdentity } from '../types'
+  const win = typeof window !== 'undefined' ? window : null
 
-export function enrichFingerprint(fingerprint: any): DeviceIdentity {
   return {
     visitorId: fingerprint.visitorId,
 
-    confidence: fingerprint.confidence,
-
     fingerprint: fingerprint.components,
+
     browser: {
-      language: navigator.language,
+      language: nav?.language ?? 'unknown',
+
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      platform: navigator.platform,
+
+      platform: nav?.platform ?? 'unknown',
     },
 
     screen: {
-      width: window.screen.width,
-      height: window.screen.height,
+      width: win?.screen.width ?? 0,
+
+      height: win?.screen.height ?? 0,
     },
 
     page: {
-      url: window.location.href,
+      url: win?.location.href ?? '',
 
-      referrer: document.referrer,
+      referrer: typeof document !== 'undefined' ? document.referrer : '',
     },
+
     timestamp: Date.now(),
   }
 }
