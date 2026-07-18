@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 //this ensures that the data is normally clean and well structured
 
 export function normalizeDevice(data: any) {

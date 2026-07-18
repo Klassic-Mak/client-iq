@@ -52,3 +52,11 @@ export {
   UnknownSources,
 } from './utils/entropy_source'
 export { withIframe } from './utils/dom'
+export { ClientIQEvent } from './realtime/events'
+export {
+  configureSocketIOLogStream,
+  LogLevel,
+  RealtimeLogEntry,
+  SocketIOLogStreamOptions,
+  SocketIOLogStream,
+} from './realtime/websockets'
