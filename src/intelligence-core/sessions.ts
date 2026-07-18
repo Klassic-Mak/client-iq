@@ -1,5 +1,3 @@
-// src/intelligence/session.ts
-
 const SESSION_KEY = '__device_sdk_session'
 
 const SESSION_TIMEOUT = 30 * 60 * 1000 // 30 minutes
