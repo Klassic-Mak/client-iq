@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; padding: 20px; }
+        .card { 
+            background: #ffffff; border-radius: 12px; padding: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: auto;
+        }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        pre { 
+            background: #272822; color: #f8f8f2; padding: 15px; 
+            border-radius: 8px; overflow-x: auto; font-size: 14px;
+        }
+        .status { font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        .connected { color: #27ae60; }
+    </style>
+</head>
 <body>
-    <h1>WebSocket Test</h1>
+
+    <div class="card">
+        <h2>Client Data Stream</h2>
+        <p id="status" class="status">Connecting...</p>
+        <pre id="data-display">Waiting for data...</pre>
+    </div>
+
     <script>
        const clientId = "6a5ceb064fe646a3242a08a9";
-       // Remove the "?" and the key name. Just use the path.
        const socket = new WebSocket(`ws://localhost:5000/ws/client/${clientId}`);
+       const display = document.getElementById('data-display');
+       const status = document.getElementById('status');
 
-        socket.onopen = () => console.log('Connected!');
-        socket.onerror = (err) => console.error('Connection failed:', err);
+        socket.onopen = () => {
+            status.textContent = '● Connected';
+            status.className = 'status connected';
+        };
 
         socket.onmessage = (event) => {
-            console.log('Received:', event.data);
+            const data = JSON.parse(event.data);
+            // Pretty-print the JSON with 2-space indentation
+            display.textContent = JSON.stringify(data, null, 2);
+        };
+
+        socket.onerror = (err) => {
+            status.textContent = 'Connection Error';
+            status.style.color = '#e74c3c';
         };
     </script>
 </body>
