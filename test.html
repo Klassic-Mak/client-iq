@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>WebSocket Test</h1>
+    <script>
+       const clientId = "6a5ceb064fe646a3242a08a9";
+       // Remove the "?" and the key name. Just use the path.
+       const socket = new WebSocket(`ws://localhost:5000/ws/client/${clientId}`);
+
+        socket.onopen = () => console.log('Connected!');
+        socket.onerror = (err) => console.error('Connection failed:', err);
+
+        socket.onmessage = (event) => {
+            console.log('Received:', event.data);
+        };
+    </script>
+</body>
+</html>
