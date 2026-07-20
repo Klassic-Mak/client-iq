@@ -13,9 +13,8 @@ impl Config {
 
     pub fn load_config() -> Result<Config, Box<dyn Error>> {
         // Handle dotenv initialization
-        if let Err(e) = dotenv() {
+        if let Err(_) = dotenv() {
             error!("env file does not exist!");
-            return Err(format!("Failed to load .env: {}", e).into());
         }
 
         let db_name = env::var("DB_NAME") .map_err(|_| {
