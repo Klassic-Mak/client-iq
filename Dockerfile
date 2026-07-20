@@ -1,5 +1,5 @@
 # Stage 1: Build the binary
-FROM rust:1.80-slim AS builder
+FROM rust:latest AS builder
 
 RUN apt-get update && apt-get install -y pkg-config libssl-dev
 
@@ -19,8 +19,6 @@ WORKDIR /app
 # Copy the built binary from the builder stage
 COPY --from=builder /app/target/release/client-iq-backend .
 
-# Copy your .env file if it's needed at runtime
-COPY .env .
 
 # Expose the port from your .env
 EXPOSE 5000

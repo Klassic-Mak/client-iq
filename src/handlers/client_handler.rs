@@ -40,11 +40,12 @@ pub async fn create_client_handler(
 }
 
 
-pub async fn get_by_id_handler(State(h): State<AppState>,Json(id): Json<ObjectId>,) -> impl IntoResponse {
-    match h.client_service.get_by_id(id).await {
+pub async fn get_by_id_handler(State(h): State<AppState>,Path(id): Path<String>,) -> impl IntoResponse {
+    let client_id = ObjectId::parse_str(id).unwrap();
+    match h.client_service.get_by_id(client_id).await {
         Ok(cl) => (StatusCode::OK, Json(cl)).into_response(),
         Err(err) => {
-            error!("Error fetching client {}: {}", id, err);
+            error!("Error fetching client {}: {}", client_id, err);
             (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()).into_response()
         }
     }
